@@ -119,3 +119,30 @@ private void startNewPiece() {
         }
         return true;
     }
+    private void tick(GraphicsContext gc, double elapsedTime) {
+        if (!gameOver) {
+            pieceY += dropSpeed;
+            if (pieceY >= currentPiece.getY() + 1) {
+                drop();
+            }
+            drawGrid(gc);
+            currentPiece.draw(gc, pieceY);
+        }
+    }
+
+    private void drawGrid(GraphicsContext gc) {
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0, 0, WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        gc.setFill(Color.WHITE);
+        gc.setFont(new Font("", 20));
+        gc.fillText("Score: " + score, 10, 20);
+
+        for (int x = 0; x < WIDTH; x++) {
+            for (int y = 0; y < HEIGHT; y++) {
+                if (GRID[x][y] == 1) {
+                    gc.setFill(Color.BLUE);
+                    gc.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                }
+            }
+        }
+    }
