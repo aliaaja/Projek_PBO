@@ -95,3 +95,27 @@ public class DashboardController implements Initializable {
             }
         });
     }
+
+    private void startNewPiece() {
+        currentPiece = new SquarePiece();
+        pieceY = currentPiece.getY();
+        if (!canMove(currentPiece, 0, 0)) {
+            gameOver = true;
+            showAlert(Alert.AlertType.ERROR, "Game Over", "Cannot place new piece!");
+            }
+        }
+
+    private boolean canMove(BasePiece piece, int dx, int dy) {
+        for (int i = 0; i < piece.getShape().length; i++) {
+            for (int j = 0; j < piece.getShape()[i].length; j++) {
+                if (piece.getShape()[i][j] == 1) {
+                    int newX = piece.getX() + j + dx;
+                    int newY = piece.getY() + i + dy;
+                    if (newX < 0 || newX >= WIDTH || newY >= HEIGHT || GRID[newX][newY] == 1) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
