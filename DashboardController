@@ -49,3 +49,49 @@ public class DashboardController implements Initializable {
         Stage stage = (Stage) startButton.getScene().getWindow();
         start(stage); 
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Inisialisasi canvas
+        canvas = new Canvas(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+    }
+
+    public void start(Stage stage) {
+        VBox root = new VBox();
+        root.getChildren().add(canvas);
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Scene scene = new Scene(root);
+        stage.setTitle("Tetris Game");
+        stage.setScene(scene);
+        stage.show();
+
+        startNewPiece();
+
+        new AnimationTimer() {
+            long lastTick = System.nanoTime();
+
+            @Override
+            public void handle(long now) {
+                double elapsedTime = (now - lastTick) / 1e9; // Seconds
+                lastTick = now;
+                tick(gc, elapsedTime);
+            }
+        }.start();
+
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.LEFT) {
+                move(-1);
+            } else if (event.getCode() == KeyCode.RIGHT) {
+                move(1);
+            } else if (event.getCode() == KeyCode.DOWN) {
+                dropFaster();
+            }
+        });
+
+        scene.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.DOWN) {
+                resetDropSpeed();
+            }
+        });
+    }
