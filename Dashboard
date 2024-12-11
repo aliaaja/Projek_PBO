@@ -1,1 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="394.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication24.DashboardController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="400.0">
+         <children>
+            <!-- Background Image -->
+            <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resource/tetrisDashboard.jpeg" />
+               </image>
+            </ImageView>
+            
+            <!-- Start Button -->
+            <Button fx:id="startButton" layoutX="162.0" layoutY="223.0" mnemonicParsing="false" onAction="#berangkat" onMouseEntered="#mouseEnter" onMouseExited="#mouseExit" prefHeight="36.0" prefWidth="76.0" style="-fx-background-color: linear-gradient(to bottom, #ff7eb3, #ff758c);                             -fx-text-fill: white;                             -fx-font-size: 16px;                             -fx-font-weight: bold;                             -fx-background-radius: 10;" text="START" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
 
