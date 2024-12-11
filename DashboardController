@@ -180,3 +180,31 @@ private void startNewPiece() {
         }
         clearLines();
     }
+
+private void clearLines() {
+        for (int y = HEIGHT - 1; y >= 0; y--) {
+            boolean fullLine = true;
+            for (int x = 0; x < WIDTH; x++) {
+                if (GRID[x][y] == 0) {
+                    fullLine = false;
+                    break;
+                }
+            }
+            if (fullLine) {
+                for (int ty = y; ty > 0; ty--) {
+                    for (int tx = 0; tx < WIDTH; tx++) {
+                        GRID[tx][ty] = GRID[tx][ty - 1];
+                    }
+                }
+                y++;
+                score += 100;
+            }
+        }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
