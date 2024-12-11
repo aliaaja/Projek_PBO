@@ -19,65 +19,34 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLDocumentController implements Initializable {
+public class DashboardController implements Initializable {
 
     @FXML
-    private Label label;
-    @FXML
-    private Button button;
-    @FXML
+    private Button startButton;
+
     private Canvas canvas;
-
-    private BasePiece currentPiece;
     private static final int TILE_SIZE = 30;
     private static final int WIDTH = 10, HEIGHT = 20;
     private static final int[][] GRID = new int[WIDTH][HEIGHT];
     private static int score = 0;
     private boolean gameOver = false;
 
-    private double pieceY = 0; n
-    private double dropSpeed = 0.05; 
+    private BasePiece currentPiece;
+    private double pieceY = 0;
+    private double dropSpeed = 0.05;
 
-    abstract class BasePiece {
-        protected int[][] shape;
-        protected int x, y;
+    @FXML
+    void mouseEnter(MouseEvent event) {
+        startButton.setStyle("-fx-background-color: linear-gradient(to bottom, #ff3565, #ff7eb3); -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;");
+    }
 
-        public BasePiece(int[][] shape) {
-            this.shape = shape;
-            this.x = WIDTH / 2 - shape[0].length / 2;
-            this.y = 0;
-        }
+    @FXML
+    void mouseExit(MouseEvent event) {
+        startButton.setStyle("-fx-background-color: linear-gradient(to bottom, #ff7eb3, #ff758c); -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;");
+    }
 
-        public int[][] getShape() {
-            return shape;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public void move(int dx) {
-            x += dx;
-        }
-
-        public void drop() {
-            y += 1;
-        }
-
-        public abstract void rotate();
-
-        public void draw(GraphicsContext gc, double smoothY) {
-            gc.setFill(Color.RED);
-            for (int i = 0; i < shape.length; i++) {
-                for (int j = 0; j < shape[i].length; j++) {
-                    if (shape[i][j] == 1) {
-                        gc.fillRect((x + j) * TILE_SIZE, (smoothY + i) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-                    }
-                }
-            }
-        }
+    @FXML
+    private void berangkat(ActionEvent event) {
+        Stage stage = (Stage) startButton.getScene().getWindow();
+        start(stage); 
     }
