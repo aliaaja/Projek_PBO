@@ -96,13 +96,13 @@ public class DashboardController implements Initializable {
     }
 
 private void startNewPiece() {
-        currentPiece = new SquarePiece();
-        pieceY = currentPiece.getY();
-        if (!canMove(currentPiece, 0, 0)) {
-            gameOver = true;
-            showAlert(Alert.AlertType.ERROR, "Game Over", "Cannot place new piece!");
-        }
+    currentPiece = new SquarePiece();
+    pieceY = currentPiece.getY();
+if (!canMove(currentPiece, 0, 0)) {
+    gameOver = true;
+    showAlert(Alert.AlertType.ERROR, "Game Over", "Cannot place new piece!");
     }
+}
 
     private boolean canMove(BasePiece piece, int dx, int dy) {
         for (int i = 0; i < piece.getShape().length; i++) {
@@ -118,15 +118,29 @@ private void startNewPiece() {
         }
         return true;
     }
+
+   private void drawGameOverScreen(GraphicsContext gc) {
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0, 0, WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        gc.setFill(Color.RED);
+        gc.setFont(new Font("Arial", 35));
+        gc.fillText("GAME OVER", WIDTH * TILE_SIZE / 8, HEIGHT * TILE_SIZE / 4);
+        gc.setFont(new Font("Arial", 20));
+        gc.fillText("Score: " + score, WIDTH * TILE_SIZE / 3, HEIGHT * TILE_SIZE / 2 + 50);
+    }
+
     private void tick(GraphicsContext gc, double elapsedTime) {
-        if (!gameOver) {
-            pieceY += dropSpeed;
-            if (pieceY >= currentPiece.getY() + 1) {
-                drop();
-            }
-            drawGrid(gc);
-            currentPiece.draw(gc, pieceY);
+        if (gameOver) {
+            drawGameOverScreen(gc);
+            return;
         }
+
+        pieceY += dropSpeed;
+        if (pieceY >= currentPiece.getY() + 1) {
+            drop();
+        }
+        drawGrid(gc);
+        currentPiece.draw(gc, pieceY);
     }
 
     private void drawGrid(GraphicsContext gc) {
