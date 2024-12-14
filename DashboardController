@@ -103,6 +103,7 @@ public class DashboardController implements Initializable {
 private void startNewPiece() {
     currentPiece = new SquarePiece();
     pieceY = currentPiece.getY();
+
 if (!canMove(currentPiece, 0, 0)) {
     gameOver = true;
     showAlert(Alert.AlertType.ERROR, "Game Over", "No space to place a new piece. Game Over!");
