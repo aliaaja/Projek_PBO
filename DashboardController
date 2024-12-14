@@ -74,7 +74,7 @@ public class DashboardController implements Initializable {
 
             @Override
             public void handle(long now) {
-                double elapsedTime = (now - lastTick) / 1e9; // Seconds
+                double elapsedTime = (now - lastTick) / 1e9;
                 lastTick = now;
                 tick(gc, elapsedTime);
             }
