@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import static javafx.scene.paint.Color.color;
 
 public class DashboardController implements Initializable {
 
@@ -85,6 +86,9 @@ public class DashboardController implements Initializable {
                 move(1);
             } else if (event.getCode() == KeyCode.DOWN) {
                 dropFaster();
+            } else if (event.getCode() ==  KeyCode.UP){
+                iRotate = true;
+                currentPiece.rotate();
             }
         });
 
@@ -238,6 +242,7 @@ private void clearLines() {
     abstract class BasePiece {
         protected int[][] shape;
         protected int x, y;
+        protected Color color;
 
         public BasePiece(int[][] shape) {
             this.shape = shape;
@@ -268,7 +273,12 @@ private void clearLines() {
         public abstract void rotate();
 
         public void draw(GraphicsContext gc, double smoothY) {
-            gc.setFill(Color.RED);
+            if(iRotate){
+                gc.setFill(color);
+            }else {
+                gc.setFill(Color.RED);
+            }
+
             for (int i = 0; i < shape.length; i++) {
                 for (int j = 0; j < shape[i].length; j++) {
                     if (shape[i][j] == 1) {
@@ -289,7 +299,7 @@ private void clearLines() {
 
         @Override
         public void rotate() {
-            
+            this.color = getRandomColor();
         }
     }
 }
