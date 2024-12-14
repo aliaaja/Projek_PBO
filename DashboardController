@@ -34,6 +34,7 @@ public class DashboardController implements Initializable {
     private BasePiece currentPiece;
     private double pieceY = 0;
     private double dropSpeed = 0.05;
+    private boolean iRotate = false;
 
     @FXML
     void mouseEnter(MouseEvent event) {
