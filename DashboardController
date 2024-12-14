@@ -100,7 +100,8 @@ private void startNewPiece() {
     pieceY = currentPiece.getY();
 if (!canMove(currentPiece, 0, 0)) {
     gameOver = true;
-    showAlert(Alert.AlertType.ERROR, "Game Over", "Cannot place new piece!");
+    showAlert(Alert.AlertType.ERROR, "Game Over", "No space to place a new piece. Game Over!");
+    return;
     }
 }
 
