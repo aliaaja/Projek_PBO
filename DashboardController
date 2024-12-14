@@ -184,6 +184,17 @@ if (!canMove(currentPiece, 0, 0)) {
         dropSpeed = 0.05; 
     }
 
+    private void checkGameOverCondition() {
+        
+        for (int x = 0; x < WIDTH; x++) {
+            if (GRID[x][0] == 1) { 
+                gameOver = true;
+                showAlert(Alert.AlertType.ERROR, "Game Over", "The top row is full. Game Over!");
+                break;
+            }
+        }
+    }
+    
     private void placePiece() {
         for (int i = 0; i < currentPiece.getShape().length; i++) {
             for (int j = 0; j < currentPiece.getShape()[i].length; j++) {
@@ -192,6 +203,7 @@ if (!canMove(currentPiece, 0, 0)) {
                 }
             }
         }
+        checkGameOverCondition();
         clearLines();
     }
 
